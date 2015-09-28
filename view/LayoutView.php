@@ -16,7 +16,7 @@ class LayoutView {
           ' . $this->renderIsLoggedIn($isLoggedIn) . '
 
           <div class="container">
-              ' . $v->response() . '
+              ' . $this->setResponse($rv, $v) . '
 
               ' . $dtv->show() . '
           </div>
@@ -31,6 +31,17 @@ class LayoutView {
         }
         else {
           return '<h2>Not logged in</h2>';
+        }
+    }
+
+    //Set response beroende på om användaren valt att registrera en ny user eller inte.
+    private function setResponse(RegisterView $rv, LoginView $v){
+        if ($rv->wantsToRegisterUser == true){
+            return $rv->renderRegisterForm();
+        }
+
+        else {
+            return $v->response();
         }
     }
 
