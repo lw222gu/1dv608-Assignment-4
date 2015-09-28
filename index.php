@@ -4,6 +4,7 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
+require_once('view/RegisterView.php');
 require_once('model/Login.php');
 require_once('controller/LoginController.php');
 
@@ -17,9 +18,10 @@ $login = new model\Login();
 //CREATE OBJECTS OF THE VIEWS
 $v = new LoginView($login);
 $dtv = new DateTimeView();
+$rv = new RegisterView();
 $lv = new LayoutView();
 
 //START CONTROLLER
 $loginController = new LoginController($login, $v);
 
-$lv->render($login->checkIfLoggedIn(), $v, $dtv);
+$lv->render($login->checkIfLoggedIn(), $v, $dtv, $rv);
