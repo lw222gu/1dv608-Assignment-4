@@ -12,6 +12,42 @@ class RegisterView {
 
     public $wantsToRegisterUser = false;
 
+
+    public function didUserPressRegisterButton(){
+        if(isset($_POST[self::$register])){
+            return true;
+        }
+        return false;
+    }
+
+    public function getUsernameInput(){
+        if(strlen($_POST[self::$name]) > 2){
+            return $_POST[self::$name];
+        }
+
+        else {
+            throw new Exception("Username has too few characters, at least 3 characters.");
+        }
+    }
+
+    public function getPasswordInput(){
+        if(strlen($_POST[self::$password]) > 5){
+            return $_POST[self::$password];
+        }
+
+        else {
+            throw new Exception("Password has too few characters, at least 6 characters.");
+        }
+    }
+
+    public function getPassWordRepeatInput(){
+        return $_POST[self::$passwordRepeat];
+    }
+
+    public function setErrorMessage($e){
+        $this->message = $e->getMessage();
+    }
+
     public function renderRegisterLink(){
         //$url = "$_SERVER[REQUEST_URI]";
         if(strpos("$_SERVER[REQUEST_URI]", "?register")){

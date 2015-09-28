@@ -38,6 +38,7 @@ class LayoutView {
     private function setResponse(RegisterView $rv, LoginView $v){
         if ($rv->wantsToRegisterUser == true){
             return $rv->renderRegisterForm();
+            //bör nog kalla på en response som i sin tur returnerar olika beroende på om validering är ok eller inte.
         }
 
         else {
