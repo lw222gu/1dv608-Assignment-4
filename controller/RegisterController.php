@@ -21,11 +21,24 @@ class RegisterController {
 
             $this->isUserInputValid = $this->registerView->checkUserInput($username, $password, $passwordRepeat);
 
-            if($this->isUserInputValid){
-                $this->register->checkUserInput($username, $password, $passwordRepeat);
+            try {
+                if($this->isUserInputValid){
+                    $this->register->checkUserInput($username, $password);
+                }
             }
-            //Om isUserInputValid, skicka den då till model\Register för att se att den inte finns i
-            //databasen. Om den inte finns i databasen så lägg till den.
+
+            catch (Exception $e){
+                $this->registerView->setErrorMessage($e);
+            }
+
+            if($this->register->getIsUserSavedStatus()){
+                //Tell views to show login form.
+            }
+
+            //If the user could not be saved, tell view to show an error message
+            //if(!$this->register->saveUser()){
+            //    $this->registerView->(false);
+            //}
 
 
             /*//try

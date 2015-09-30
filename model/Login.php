@@ -17,6 +17,10 @@ class Login {
     }
 
     public function checkUserInput($username, $password){
+
+        //NEEDS TO BE REWRITTEN!
+        //User credentials are to be compared to the ones in the userdatabase file.
+
         // Validation in model, if validation in view for some reason wont work...
         if(empty($username)){
             throw new \Exception("Username is missing");

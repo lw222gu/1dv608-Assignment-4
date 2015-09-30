@@ -12,7 +12,6 @@ class RegisterView {
     private $savedUsername = "";
     public $wantsToRegisterUser = false;
 
-
     public function didUserPressRegisterButton(){
         if(isset($_POST[self::$register])){
             return true;
@@ -57,9 +56,9 @@ class RegisterView {
         return false;
     }
 
-   /* public function setErrorMessage($e){
+    public function setErrorMessage($e){
         $this->message = $e->getMessage();
-    }*/
+    }
 
     public function renderRegisterLink(){
         if(strpos("$_SERVER[REQUEST_URI]", "?register")){
