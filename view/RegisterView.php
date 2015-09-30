@@ -63,14 +63,6 @@ class RegisterView {
         return false;
     }
 
-   /* public function getMessage(){
-        return $this->message;
-    } */
-
-   /* public function setErrorMessage($e){
-        $this->message = $e->getMessage();
-    }*/
-
     public function renderRegisterLink(){
         if(strpos("$_SERVER[REQUEST_URI]", "?register") && !$this->isUserSaved){
             $this->wantsToRegisterUser = true;

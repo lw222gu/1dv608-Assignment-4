@@ -34,11 +34,6 @@ class RegisterController {
             //catch (Exception $e){
             //    $this->registerView->setErrorMessage($e);
             //}
-
-            if($this->register->getIsUserSavedStatus()){
-                //Tell views to show login form.
-                //$this->registerView->wantsToRegisterUser=false;
-            }
         }
     }
 
