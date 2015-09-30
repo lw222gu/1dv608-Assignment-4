@@ -6,21 +6,17 @@ class Register
 
     private $username;
     private $password;
-    private $isUserSaved = false;
+   // private $isUserSaved = false;
     private $userAlreadyExists = false;
 
     public function __construct()
     {
-        //If userdatabase file do not exist, create it.
+        //Do I even need this constructor?
     }
 
     public function checkIfUserExists($username)
     {
-        //$this->username = $username;
-        //$this->password = $password;
-
         if(file_exists("data/" . $username . ".txt")){
-            //$this->saveUser();
             $this->userAlreadyExists = true;
             return true;
         }
@@ -31,7 +27,6 @@ class Register
         }
         //If it exists, throw new Exception("User exists, pick another username.")...
         //Else $this->saveUser();
-
     }
 
     public function saveUser($username, $password){
@@ -39,15 +34,15 @@ class Register
         //with $this->username and $this->password as credentials.
         //INSERT INTO `lisawestlund_se_db_1`.`Users` (`Username`, `Password`) VALUES ('Admin', 'Password');
         $newFile = fopen("data/" . $username . ".txt", "w");
-        //password_hash()
-        $input = "$username, $password";
+        //$input = "$username, $password";
+        $input = password_hash($password, PASSWORD_DEFAULT);
         fwrite($newFile, $input);
-        $this->isUserSaved = true;
+        //$this->isUserSaved = true;
     }
 
-    public function getIsUserSavedStatus(){
+    /*public function getIsUserSavedStatus(){
         return $this->isUserSaved;
-    }
+    }*/
 
     public function getUserExistsStatus(){
         return $this->userAlreadyExists;
