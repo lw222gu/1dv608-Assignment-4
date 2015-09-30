@@ -15,6 +15,8 @@ class Register
 
     public function checkUserInput($username, $password, $passwordRepeat)
     {
-
+        $this->username = $username;
+        $this->password = $password;
+        $this->passwordRepeat = $passwordRepeat;
     }
 }

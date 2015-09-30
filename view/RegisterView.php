@@ -20,12 +20,21 @@ class RegisterView {
         return false;
     }
 
-    public function checkUserInput(){
-        $username = $this->getUsernameInput();
-        $password = $this->getPasswordInput();
-        $passwordRepeat = $this->getPassWordRepeatInput();
+    public function getUsernameInput(){
+        return $_POST[self::$name];
+    }
 
-        if(strlen($username) > 5){
+    public function getPasswordInput(){
+        return $_POST[self::$password];
+    }
+
+    public function getPassWordRepeatInput(){
+        return $_POST[self::$passwordRepeat];
+    }
+
+    public function checkUserInput($username, $password, $passwordRepeat){
+
+        if(strlen($username) > 2){
             $this->message = "";
             $this->savedUsername = $username;
         } else {
@@ -40,18 +49,12 @@ class RegisterView {
         if($password != $passwordRepeat){
             $this->message .= "Passwords do not match.";
         }
-    }
 
-    public function getUsernameInput(){
-        return $_POST[self::$name];
-    }
+        if($this->message == ""){
+            return true;
+        }
 
-    public function getPasswordInput(){
-        return $_POST[self::$password];
-    }
-
-    public function getPassWordRepeatInput(){
-        return $_POST[self::$passwordRepeat];
+        return false;
     }
 
    /* public function setErrorMessage($e){
