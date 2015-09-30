@@ -9,7 +9,7 @@ class RegisterView {
     private static $register = 'RegisterView::Register';
 
     private $message;
-
+    private $savedUsername = "";
     public $wantsToRegisterUser = false;
 
 
@@ -20,36 +20,45 @@ class RegisterView {
         return false;
     }
 
-    public function getUsernameInput(){
-        if(strlen($_POST[self::$name]) > 2){
-            return $_POST[self::$name];
+    public function checkUserInput(){
+        $username = $this->getUsernameInput();
+        $password = $this->getPasswordInput();
+        $passwordRepeat = $this->getPassWordRepeatInput();
+
+        if(strlen($username) > 5){
+            $this->message = "";
+            $this->savedUsername = $username;
+        } else {
+            $this->savedUsername = $username;
+            $this->message = "Username has too few characters, at least 3 characters. <br/>";
         }
 
-        else {
-            throw new Exception("Username has too few characters, at least 3 characters.");
+        if(strlen($password) < 6){
+            $this->message .= "Password has too few characters, at least 6 characters. <br/>";
+        }
+
+        if($password != $passwordRepeat){
+            $this->message .= "Passwords do not match.";
         }
     }
 
-    public function getPasswordInput(){
-        if(strlen($_POST[self::$password]) > 5){
-            return $_POST[self::$password];
-        }
+    public function getUsernameInput(){
+        return $_POST[self::$name];
+    }
 
-        else {
-            throw new Exception("Password has too few characters, at least 6 characters.");
-        }
+    public function getPasswordInput(){
+        return $_POST[self::$password];
     }
 
     public function getPassWordRepeatInput(){
         return $_POST[self::$passwordRepeat];
     }
 
-    public function setErrorMessage($e){
+   /* public function setErrorMessage($e){
         $this->message = $e->getMessage();
-    }
+    }*/
 
     public function renderRegisterLink(){
-        //$url = "$_SERVER[REQUEST_URI]";
         if(strpos("$_SERVER[REQUEST_URI]", "?register")){
             $this->wantsToRegisterUser = true;
             return '<a href="?">Back to login</a>';
@@ -60,17 +69,22 @@ class RegisterView {
         }
     }
 
-    public function renderRegisterForm(){
+    public function response() {
+        $response = $this->renderRegisterForm($this->message);
+        return $response;
+    }
+
+    public function renderRegisterForm($message){
         return '
             <h2>Register new user</h2>
             <form method="post" >
                 <fieldset>
                     <legend>Register a new user - Write username and password</legend>
-                    <p id="' . self::$messageId . '">' . $this->message . '</p>
+                    <p id="' . self::$messageId . '">' . $message . '</p>
                     <br />
 
                     <label for="' . self::$name . '">Username :</label>
-                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->savedUsername . '" />
                     <br />
 
                     <label for="' . self::$password . '">Password :</label>
