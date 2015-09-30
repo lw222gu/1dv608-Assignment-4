@@ -19,41 +19,24 @@ class RegisterController {
             $password = $this->registerView->getPasswordInput();
             $passwordRepeat = $this->registerView->getPassWordRepeatInput();
 
+            if($this->register->checkIfUserExists($username)){
+                $this->registerView->userAlreadyExists = true;
+            }
+
             $this->isUserInputValid = $this->registerView->checkUserInput($username, $password, $passwordRepeat);
 
-            try {
-                if($this->isUserInputValid){
-                    $this->register->checkUserInput($username, $password);
-                }
+            //try {
+            if($this->isUserInputValid){
+                $this->register->saveUser($username, $password);
             }
-
-            catch (Exception $e){
-                $this->registerView->setErrorMessage($e);
-            }
+            //}
+            //catch (Exception $e){
+            //    $this->registerView->setErrorMessage($e);
+            //}
 
             if($this->register->getIsUserSavedStatus()){
                 //Tell views to show login form.
             }
-
-            //If the user could not be saved, tell view to show an error message
-            //if(!$this->register->saveUser()){
-            //    $this->registerView->(false);
-            //}
-
-
-            /*//try
-            //send user input to register model
-            try{
-                //$username = $this->registerView->getUsernameInput();
-                //$password = $this->registerView->getPasswordInput();
-                //$passwordRepeat = $this->registerView->getPassWordRepeatInput();
-
-                //send user input to register model
-            }
-
-            catch(Exception $e) {
-                $this->registerView->setErrorMessage($e);
-            }*/
         }
     }
 

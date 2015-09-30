@@ -10,6 +10,7 @@ class RegisterView {
 
     private $message;
     private $savedUsername = "";
+    public $userAlreadyExists;
     public $wantsToRegisterUser = false;
 
     public function didUserPressRegisterButton(){
@@ -46,7 +47,11 @@ class RegisterView {
         }
 
         if($password != $passwordRepeat){
-            $this->message .= "Passwords do not match.";
+            $this->message .= "Passwords do not match. <br/>";
+        }
+
+        if($this->userAlreadyExists){
+            $this->message .= "User exists, pick another username.";
         }
 
         if($this->message == ""){
@@ -56,9 +61,13 @@ class RegisterView {
         return false;
     }
 
-    public function setErrorMessage($e){
+   /* public function getMessage(){
+        return $this->message;
+    } */
+
+   /* public function setErrorMessage($e){
         $this->message = $e->getMessage();
-    }
+    }*/
 
     public function renderRegisterLink(){
         if(strpos("$_SERVER[REQUEST_URI]", "?register")){
