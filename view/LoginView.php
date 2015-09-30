@@ -12,8 +12,8 @@ class LoginView {
     private static $messageId = 'LoginView::Message';
 
     private $loginModel;
-    private $message = "";
-    private $savedUsername = "";
+    public $message = "";
+    public $savedUsername = "";
 
     public function __construct(\model\Login $login){
         $this->loginModel = $login;

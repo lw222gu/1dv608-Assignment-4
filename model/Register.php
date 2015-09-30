@@ -38,8 +38,9 @@ class Register
         //Save new user in userdatabase file,
         //with $this->username and $this->password as credentials.
         //INSERT INTO `lisawestlund_se_db_1`.`Users` (`Username`, `Password`) VALUES ('Admin', 'Password');
-        $newFile = fopen("data/" . $this->username . ".txt", "w");
-        $input = "$this->username, $this->password";
+        $newFile = fopen("data/" . $username . ".txt", "w");
+        //password_hash()
+        $input = "$username, $password";
         fwrite($newFile, $input);
         $this->isUserSaved = true;
     }

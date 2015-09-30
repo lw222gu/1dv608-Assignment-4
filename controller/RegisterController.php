@@ -28,6 +28,7 @@ class RegisterController {
             //try {
             if($this->isUserInputValid){
                 $this->register->saveUser($username, $password);
+               // $this->registerView->wantsToRegisterUser=false;
             }
             //}
             //catch (Exception $e){
@@ -36,6 +37,7 @@ class RegisterController {
 
             if($this->register->getIsUserSavedStatus()){
                 //Tell views to show login form.
+                //$this->registerView->wantsToRegisterUser=false;
             }
         }
     }

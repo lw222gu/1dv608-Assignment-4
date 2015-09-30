@@ -36,14 +36,25 @@ class LayoutView {
 
     //Set response beroende på om användaren valt att registrera en ny user eller inte.
     private function setResponse(RegisterView $rv, LoginView $v){
+        if($rv->isUserSaved){
+            $v->savedUsername = $rv->savedUsername;
+            $v->message = "Registered new user.";
+            return $v->response();
+        }
+
+        if(!$rv->wantsToRegisterUser){
+
+            return $v->response();
+        }
+
         if ($rv->wantsToRegisterUser == true){
             return $rv->response();
             //bör nog kalla på en response som i sin tur returnerar olika beroende på om validering är ok eller inte.
         }
 
-        else {
+        /*else {
             return $v->response();
-        }
+        }*/
     }
 
 }

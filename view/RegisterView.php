@@ -9,9 +9,10 @@ class RegisterView {
     private static $register = 'RegisterView::Register';
 
     private $message;
-    private $savedUsername = "";
+    public $savedUsername = "";
     public $userAlreadyExists;
     public $wantsToRegisterUser = false;
+    public $isUserSaved = false;
 
     public function didUserPressRegisterButton(){
         if(isset($_POST[self::$register])){
@@ -55,6 +56,7 @@ class RegisterView {
         }
 
         if($this->message == ""){
+            $this->isUserSaved = true;
             return true;
         }
 
@@ -70,7 +72,7 @@ class RegisterView {
     }*/
 
     public function renderRegisterLink(){
-        if(strpos("$_SERVER[REQUEST_URI]", "?register")){
+        if(strpos("$_SERVER[REQUEST_URI]", "?register") && !$this->isUserSaved){
             $this->wantsToRegisterUser = true;
             return '<a href="?">Back to login</a>';
         }
