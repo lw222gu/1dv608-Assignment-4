@@ -57,6 +57,7 @@ class RegisterView {
 
         if($this->message == ""){
             $this->isUserSaved = true;
+            //$this->wantsToRegisterUser = false;
             return true;
         }
 
@@ -70,13 +71,16 @@ class RegisterView {
         }
 
         else {
+            //$this->wantsToRegisterUser = false;
             return '<a href="?register">Register a new user</a>';
         }
     }
 
     public function response() {
-        $response = $this->renderRegisterForm($this->message);
-        return $response;
+        if($this->wantsToRegisterUser){
+            $response = $this->renderRegisterForm($this->message);
+            return $response;
+        }
     }
 
     public function renderRegisterForm($message){

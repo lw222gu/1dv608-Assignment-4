@@ -36,19 +36,24 @@ class LayoutView {
 
     private function setResponse(RegisterView $rv, LoginView $v){
         if($rv->isUserSaved){
+            $rv->isUserSaved = false;
             $v->savedUsername = $rv->savedUsername;
             $v->message = "Registered new user.";
             return $v->response();
         }
 
-        if(!$rv->wantsToRegisterUser){
+        if(!$rv->isUserSaved && !$rv->wantsToRegisterUser){
+            return $v->response();
+        }
 
+        if($v->didUserPressLoginButton() || $v->didUserPressLogoutButton()){
             return $v->response();
         }
 
         if ($rv->wantsToRegisterUser == true){
             return $rv->response();
         }
+
     }
 
 }
