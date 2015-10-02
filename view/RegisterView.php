@@ -42,25 +42,24 @@ class RegisterView {
             $this->savedUsername = $username;
             $this->message = "Username has too few characters, at least 3 characters. <br/>";
         }
-
         if(strlen($password) < 6){
             $this->message .= "Password has too few characters, at least 6 characters. <br/>";
         }
-
         if($password != $passwordRepeat){
             $this->message .= "Passwords do not match. <br/>";
         }
-
         if($this->userAlreadyExists){
-            $this->message .= "User exists, pick another username.";
+            $this->message .= "User exists, pick another username. <br />";
+        }
+        if(strlen($username) != strlen(strip_tags($username))) {
+            $this->message .= "Username contains invalid characters.";
+            $this->savedUsername = strip_tags($username);
         }
 
         if($this->message == ""){
             $this->isUserSaved = true;
-            //$this->wantsToRegisterUser = false;
             return true;
         }
-
         return false;
     }
 
@@ -71,16 +70,13 @@ class RegisterView {
         }
 
         else {
-            //$this->wantsToRegisterUser = false;
             return '<a href="?register">Register a new user</a>';
         }
     }
 
     public function response() {
-        if($this->wantsToRegisterUser){
-            $response = $this->renderRegisterForm($this->message);
-            return $response;
-        }
+        $response = $this->renderRegisterForm($this->message);
+        return $response;
     }
 
     public function renderRegisterForm($message){

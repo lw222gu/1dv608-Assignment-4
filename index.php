@@ -28,4 +28,6 @@ $lv = new LayoutView();
 $loginController = new LoginController($login, $v);
 $registerController = new RegisterController($register, $rv);
 
+$loginController->checkUserInput();
+
 $lv->render($login->checkIfLoggedIn(), $v, $dtv, $rv);

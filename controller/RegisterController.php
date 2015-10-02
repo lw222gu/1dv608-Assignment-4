@@ -25,15 +25,9 @@ class RegisterController {
 
             $this->isUserInputValid = $this->registerView->checkUserInput($username, $password, $passwordRepeat);
 
-            //try {
             if($this->isUserInputValid){
                 $this->register->saveUser($username, $password);
-               // $this->registerView->wantsToRegisterUser=false;
             }
-            //}
-            //catch (Exception $e){
-            //    $this->registerView->setErrorMessage($e);
-            //}
         }
     }
 

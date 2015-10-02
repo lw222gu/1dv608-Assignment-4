@@ -20,7 +20,7 @@ class LoginView {
     }
 
     /**
-     * Functions below gets input from user.
+     * Functions below gets and checks input from user.
      */
     public function didUserPressLoginButton(){
         if(isset($_POST[self::$login])){
@@ -30,24 +30,12 @@ class LoginView {
     }
 
     public function usernameInput(){
-        if(!empty($_POST[self::$name])){
-            $this->savedUsername = $_POST[self::$name];
-            return $_POST[self::$name];
-        }
-
-        else {
-            throw new Exception("Username is missing");
-        }
+        $this->savedUsername = $_POST[self::$name];
+        return $_POST[self::$name];
     }
 
     public function passwordInput(){
-        if(!empty($_POST[self::$password])){
-            return $_POST[self::$password];
-        }
-
-        else {
-            throw new Exception("Password is missing");
-        }
+        return $_POST[self::$password];
     }
 
     public function didUserPressLogoutButton(){
@@ -57,12 +45,25 @@ class LoginView {
         return false;
     }
 
+    public function checkUserInput($username, $password){
+        if($username == ""){
+            $this->message = "Username is missing";
+            return false;
+        }
+
+        if($password == ""){
+            $this->message = "Password is missing";
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * Functions below sets messages.
      */
-    public function setErrorMessage($e){
-        $this->message = $e->getMessage();
+    public function setWrongCredentialsMessage(){
+        $this->message = "Wrong name or password";
     }
 
     public function setLoginMessage(){
