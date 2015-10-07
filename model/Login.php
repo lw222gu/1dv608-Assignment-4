@@ -1,9 +1,7 @@
 <?php
 
 namespace model;
-
-session_start();
-
+session_start(); //This should be moved to index and not destroyed!!
 class Login {
     private $isLoggedInSession = "isLoggedIn";
 

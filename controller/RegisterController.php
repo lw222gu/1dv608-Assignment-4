@@ -1,12 +1,13 @@
 <?php
 
+namespace controller;
 class RegisterController {
 
     private $register;
     private $registerView;
     private $isUserInputValid;
 
-    public function __construct(model\Register $register, RegisterView $registerView){
+    public function __construct(\model\Register $register, \view\RegisterView $registerView){
         $this->register = $register;
         $this->registerView = $registerView;
         $this->checkUserInput();

@@ -1,6 +1,6 @@
 <?php
 
-
+namespace view;
 class LoginView {
     private static $login = 'LoginView::Login';
     private static $logout = 'LoginView::Logout';
@@ -58,7 +58,6 @@ class LoginView {
         return true;
     }
 
-
     /**
      * Functions below sets messages.
      */
@@ -74,14 +73,6 @@ class LoginView {
         $this->message = "Bye bye!";
     }
 
-
-    /**
-     * Create HTTP response
-     *
-     * Should be called after a login attempt has been determined
-     *
-     * @return  void BUT writes to standard output and cookies!
-     */
     public function response() {
         if($this->loginModel->checkIfLoggedIn()){
             $response = $this->generateLogoutButtonHTML($this->message);
@@ -95,10 +86,8 @@ class LoginView {
     }
 
     /**
-    * Generate HTML code on the output buffer for the logout button
-    * @param $message, String output message
-    * @return  void, BUT writes to standard output!
-    */
+     * Functions below generates output html.
+     */
     private function generateLogoutButtonHTML($message) {
         return '
             <form  method="post" >
@@ -108,11 +97,6 @@ class LoginView {
         ';
     }
 
-    /**
-    * Generate HTML code on the output buffer for the logout button
-    * @param $message, String output message
-    * @return  void, BUT writes to standard output!
-    */
     private function generateLoginFormHTML($message) {
         return '
             <form method="post" >
@@ -134,10 +118,4 @@ class LoginView {
             </form>
         ';
     }
-
-    //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-    private function getRequestUserName() {
-        //RETURN REQUEST VARIABLE: USERNAME
-    }
-	
 }

@@ -1,5 +1,6 @@
 <?php
 
+namespace view;
 class RegisterView {
 
     private static $messageId = 'RegisterView::Message';

@@ -1,5 +1,6 @@
 <?php
 
+namespace view;
 class NavigationView{
 
     private $loginView;
@@ -7,14 +8,16 @@ class NavigationView{
     private $wantsToRegisterUser;
     public $isUserSaved = true;
 
-    public function __construct(LoginView $loginView, RegisterView $registerView){
+    public function __construct(\view\LoginView $loginView, \view\RegisterView $registerView){
         $this->loginView = $loginView;
         $this->registerView = $registerView;
     }
 
     public function renderRegisterLink(){
 
-        if((strpos("$_SERVER[REQUEST_URI]", "?register") && $this->registerView->isUserSaved) || $this->loginView->didUserPressLogoutButton()){
+        if((strpos("$_SERVER[REQUEST_URI]", "?register") && $this->registerView->isUserSaved)
+            || $this->loginView->didUserPressLogoutButton()
+            || $this->loginView->didUserPressLoginButton()){
             $this->wantsToRegisterUser = false;
             return '<a href="?register">Register a new user</a>';
         }
@@ -48,7 +51,6 @@ class NavigationView{
         //If user is saved -> return login form with success message
         if($this->registerView->isUserSaved){
             $this->registerView->isUserSaved = false;
-            //$this->isUserSaved = false;
             $this->loginView->savedUsername = $this->registerView->savedUsername;
             $this->loginView->message = "Registered new user.";
             return $this->loginView->response();

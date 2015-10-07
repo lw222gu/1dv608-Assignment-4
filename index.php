@@ -20,15 +20,15 @@ $login = new model\Login();
 $register = new model\Register();
 
 //CREATE OBJECTS OF THE VIEWS
-$v = new LoginView($login);
-$dtv = new DateTimeView();
-$rv = new RegisterView();
-$lv = new LayoutView();
-$nv = new NavigationView($v, $rv);
+$v = new view\LoginView($login);
+$dtv = new view\DateTimeView();
+$rv = new view\RegisterView();
+$lv = new view\LayoutView();
+$nv = new view\NavigationView($v, $rv);
 
 //START CONTROLLERS
-$loginController = new LoginController($login, $v);
-$registerController = new RegisterController($register, $rv);
+$loginController = new controller\LoginController($login, $v);
+$registerController = new controller\RegisterController($register, $rv);
 
 //START RENDERING USER INTERFACE
 $lv->render($login->checkIfLoggedIn(),$dtv, $nv);
