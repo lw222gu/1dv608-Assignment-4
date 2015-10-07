@@ -5,9 +5,10 @@ class LoginController
     private $loginView;
     private $loginModel;
 
-    public function __construct(\model\Login $login, LoginView $v){
-        $this->loginView = $v;
+    public function __construct(\model\Login $login, LoginView $loginView){
+        $this->loginView = $loginView;
         $this->loginModel = $login;
+        $this->checkUserInput();
     }
 
     public function checkUserInput()
