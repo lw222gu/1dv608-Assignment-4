@@ -6,9 +6,9 @@ class RegisterController {
     private $registerView;
     private $isUserInputValid;
 
-    public function __construct(model\Register $register, RegisterView $rv){
+    public function __construct(model\Register $register, RegisterView $registerView){
         $this->register = $register;
-        $this->registerView = $rv;
+        $this->registerView = $registerView;
         $this->checkUserInput();
     }
 
@@ -19,6 +19,7 @@ class RegisterController {
             $password = $this->registerView->getPasswordInput();
             $passwordRepeat = $this->registerView->getPassWordRepeatInput();
 
+            //I should probably put this in a try-catch
             if($this->register->checkIfUserExists($username)){
                 $this->registerView->userAlreadyExists = true;
             }
