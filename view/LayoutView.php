@@ -3,7 +3,7 @@
 
 class LayoutView {
   
-    public function render($isLoggedIn, LoginView $v, DateTimeView $dtv, RegisterView $rv) {
+    public function render($isLoggedIn, DateTimeView $dateTimeView, NavigationView $navigationView) {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -12,13 +12,12 @@ class LayoutView {
         </head>
         <body>
           <h1>Assignment 2</h1>
-          ' . $rv->renderRegisterLink() . '
+          ' . $navigationView->renderRegisterLink() . '
           ' . $this->renderIsLoggedIn($isLoggedIn) . '
 
           <div class="container">
-              ' . $this->setResponse($rv, $v) . '
-
-              ' . $dtv->show() . '
+              ' . $navigationView->setResponse() . '
+              ' . $dateTimeView->show() . '
           </div>
          </body>
       </html>
@@ -34,30 +33,29 @@ class LayoutView {
         }
     }
 
-    private function setResponse(RegisterView $rv, LoginView $v){
+    /*public function setResponse(RegisterView $registerView, LoginView $loginView, NavigationView $navigationView){
         //If user is saved -> return login form with success message
-        if($rv->isUserSaved){
-            $rv->isUserSaved = false;
-            $v->savedUsername = $rv->savedUsername;
-            $v->message = "Registered new user.";
-            return $v->response();
+        if($registerView->isUserSaved){
+            $registerView->isUserSaved = false;
+            $navigationView->isUserSaved = false;
+            $loginView->savedUsername = $$registerView->savedUsername;
+            $loginView->message = "Registered new user.";
+            return $loginView->response();
         }
 
         //If user just started the application, show login form from login view
-        if(!$rv->isUserSaved && !$rv->wantsToRegisterUser){
-            return $v->response();
+        if(!$navigationView->isUserSaved && !$registerView->wantsToRegisterUser){
+            return $loginView->response();
         }
 
         //If user logged in or out, show login view
-        if($v->didUserPressLoginButton() || $v->didUserPressLogoutButton()){
-            return $v->response();
+        if($loginView->didUserPressLoginButton() || $loginView->didUserPressLogoutButton()){
+            return $loginView->response();
         }
 
         //If user pressed register a new user, show register form from register view
-        if ($rv->wantsToRegisterUser == true){
-            return $rv->response();
+        if ($registerView->wantsToRegisterUser == true){
+            return $registerView->response();
         }
-
-    }
-
+    }*/
 }

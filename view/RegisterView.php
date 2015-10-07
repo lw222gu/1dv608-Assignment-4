@@ -63,17 +63,6 @@ class RegisterView {
         return false;
     }
 
-    public function renderRegisterLink(){
-        if(strpos("$_SERVER[REQUEST_URI]", "?register") && !$this->isUserSaved){
-            $this->wantsToRegisterUser = true;
-            return '<a href="?">Back to login</a>';
-        }
-
-        else {
-            return '<a href="?register">Register a new user</a>';
-        }
-    }
-
     public function response() {
         $response = $this->renderRegisterForm($this->message);
         return $response;

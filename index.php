@@ -5,6 +5,7 @@ require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
 require_once('view/RegisterView.php');
+require_once('view/NavigationView.php');
 require_once('model/Login.php');
 require_once('model/Register.php');
 require_once('controller/LoginController.php');
@@ -23,11 +24,11 @@ $v = new LoginView($login);
 $dtv = new DateTimeView();
 $rv = new RegisterView();
 $lv = new LayoutView();
+$nv = new NavigationView($v, $rv);
 
 //START CONTROLLERS
 $loginController = new LoginController($login, $v);
 $registerController = new RegisterController($register, $rv);
 
-$loginController->checkUserInput();
-
-$lv->render($login->checkIfLoggedIn(), $v, $dtv, $rv);
+//START RENDERING USER INTERFACE
+$lv->render($login->checkIfLoggedIn(),$dtv, $nv);
