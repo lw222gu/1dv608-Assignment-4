@@ -12,7 +12,7 @@ class LoginController
         $this->checkUserInput();
     }
 
-    public function checkUserInput()
+    private function checkUserInput()
     {
         /** STATE CHECK:
          * Only tries to log in if user pressed login button AND is logged out.

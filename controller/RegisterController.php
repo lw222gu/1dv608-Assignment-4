@@ -13,17 +13,16 @@ class RegisterController {
         $this->checkUserInput();
     }
 
-    public function checkUserInput(){
+    private function checkUserInput(){
         if($this->registerView->didUserPressRegisterButton()){
 
             $username = $this->registerView->getUsernameInput();
             $password = $this->registerView->getPasswordInput();
-            $passwordRepeat = $this->registerView->getPassWordRepeatInput();
+            $passwordRepeat = $this->registerView->getPassWordRepeatInput(); //denna behöver inte hämtas här och skickas tillbaka...
 
-            //I should probably put this in a try-catch
-            if($this->register->checkIfUserExists($username)){
-                $this->registerView->userAlreadyExists = true;
-            }
+        //    if($this->register->checkIfUserExists($username)){
+                $this->registerView->setUserAlreadyExists($this->register->checkIfUserExists($username));
+        //    }
 
             $this->isUserInputValid = $this->registerView->checkUserInput($username, $password, $passwordRepeat);
 

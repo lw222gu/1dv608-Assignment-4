@@ -13,14 +13,26 @@ class RegisterView {
     private $message;
     private $savedUsername = "";
 
-    public $userAlreadyExists;
-    public $isUserSaved = false;
+    private $userAlreadyExists;
+    private $isUserSaved = false;
+
+    /**
+     * Functions below gets and sets private members
+     * which needs to be accessible through other classes.
+     */
+    public function setUserAlreadyExists($userAlreadyExists){
+        $this->userAlreadyExists = $userAlreadyExists;
+    }
+
+    public function getIsUserSavedStatus(){
+        return $this->isUserSaved;
+    }
 
     /**
      * Functions below sets redirects and saves user information
      * as a temporary user object in session.
      */
-    public function redirect(){
+    private function redirect(){
         $tempUser = new \model\TempUser($this->message, $this->savedUsername);
         $_SESSION[$this->tempUserSession] = $tempUser;
         $actualLink = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
@@ -101,7 +113,7 @@ class RegisterView {
         return $response;
     }
 
-    public function renderRegisterForm($message){
+    private function renderRegisterForm($message){
         return '
             <h2>Register new user</h2>
             <form method="post" >

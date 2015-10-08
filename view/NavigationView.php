@@ -6,7 +6,6 @@ class NavigationView{
     private $loginView;
     private $registerView;
     private $wantsToRegisterUser;
-    private $isUserSaved = true;
 
     public function __construct(\view\LoginView $loginView, \view\RegisterView $registerView){
         $this->loginView = $loginView;
@@ -15,14 +14,14 @@ class NavigationView{
 
     public function renderRegisterLink(){
 
-        if((strpos("$_SERVER[REQUEST_URI]", "?register") && $this->registerView->isUserSaved)
+        if((strpos("$_SERVER[REQUEST_URI]", "?register") && $this->registerView->getIsUserSavedStatus())
             || $this->loginView->didUserPressLogoutButton()
             || $this->loginView->didUserPressLoginButton()){
             $this->wantsToRegisterUser = false;
             return '<a href="?register">Register a new user</a>';
         }
 
-        if(strpos("$_SERVER[REQUEST_URI]", "?register") && !$this->registerView->isUserSaved){
+        if(strpos("$_SERVER[REQUEST_URI]", "?register") && !$this->registerView->getIsUserSavedStatus()){
             $this->wantsToRegisterUser = true;
             return '<a href="?">Back to login</a>';
         }
