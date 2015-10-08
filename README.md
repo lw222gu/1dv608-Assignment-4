@@ -1,9 +1,9 @@
 # Login_1DV608
-Assignment 4, Web Development with PHP
+Assignment 4, Web Development with PHP, Linnaeus University
 
 ## Description
 * Login component, written in PHP with Model-View-Controller separated code.
-* Example version at http://skola.lisawestlund.se/1dv608-Assignment-4/index.php.
+* Example version of component is avaliable on [this link](http://skola.lisawestlund.se/1dv608-Assignment-4/index.php).
 
 ## Use Cases
 Use cases are found at:
