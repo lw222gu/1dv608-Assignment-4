@@ -1,19 +1,16 @@
 <?php
 
 namespace model;
-session_start(); //This should be moved to index and not destroyed!!
 class Login {
     private $isLoggedInSession = "isLoggedIn";
 
     public function __construct() {
-        // If $_SESSION[$this->isLoggedInSession] isn´t set, set it to false.
         if(!isset($_SESSION[$this->isLoggedInSession])){
             $_SESSION[$this->isLoggedInSession] = false;
         }
     }
 
     public function checkUserInput($username, $password){
-
         if(file_exists("data/" . $username . ".txt")){
             $userFile = fopen("data/" . $username . ".txt", "r");
             if(password_verify($password, fgets($userFile))){
@@ -42,6 +39,6 @@ class Login {
 
     public function Logout(){
         $_SESSION[$this->isLoggedInSession] = false;
-        session_destroy();
+        //session_destroy(); //SHOULD NOT BE DESTROYED!!
     }
 }

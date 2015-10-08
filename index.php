@@ -1,6 +1,6 @@
 <?php
 
-//INCLUDE THE FILES NEEDED...
+//INCLUDE THE FILES NEEDED
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
@@ -15,7 +15,7 @@ require_once('controller/RegisterController.php');
 //START SESSION
 session_start();
 
-//MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
+//MAKE SURE ERRORS ARE SHOWN
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
@@ -24,15 +24,15 @@ $login = new model\Login();
 $register = new model\Register();
 
 //CREATE OBJECTS OF THE VIEWS
-$v = new view\LoginView($login);
-$dtv = new view\DateTimeView();
-$rv = new view\RegisterView();
-$lv = new view\LayoutView();
-$nv = new view\NavigationView($v, $rv);
+$loginView = new view\LoginView($login);
+$dateTimeView = new view\DateTimeView();
+$registerView = new view\RegisterView();
+$layoutView = new view\LayoutView();
+$navigationView = new view\NavigationView($loginView, $registerView);
 
 //START CONTROLLERS
-$loginController = new controller\LoginController($login, $v);
-$registerController = new controller\RegisterController($register, $rv);
+$loginController = new controller\LoginController($login, $loginView);
+$registerController = new controller\RegisterController($register, $registerView);
 
 //START RENDERING USER INTERFACE
-$lv->render($login->checkIfLoggedIn(),$dtv, $nv);
+$layoutView->render($login->checkIfLoggedIn(),$dateTimeView, $navigationView);

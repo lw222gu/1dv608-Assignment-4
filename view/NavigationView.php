@@ -39,17 +39,16 @@ class NavigationView{
         }
 
         if($this->loginView->didUserPressLogoutButton() || $this->loginView->didUserPressLoginButton()){
-            $this->registerView->unsetSaveLocationSession();
+            $this->registerView->unsetTempUserSessionSession();
             return $this->loginView->response();
         }
 
         if($this->registerView->getTempUser() != null){
             $tempUser = $this->registerView->getTempUser();
-            $this->loginView->setTempUserInformation($tempUser->getSessionMessage(), $tempUser->getSavedUsername());
+            $this->loginView->setTempUserInformation($tempUser->getMessage(), $tempUser->getSavedUsername());
             return $this->loginView->response();
         }
 
         return $this->loginView->response();
-
     }
 }

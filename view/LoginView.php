@@ -6,14 +6,12 @@ class LoginView {
     private static $logout = 'LoginView::Logout';
     private static $name = 'LoginView::UserName';
     private static $password = 'LoginView::Password';
-    private static $cookieName = 'LoginView::CookieName';
-    private static $cookiePassword = 'LoginView::CookiePassword';
     private static $keep = 'LoginView::KeepMeLoggedIn';
     private static $messageId = 'LoginView::Message';
 
     private $loginModel;
-    public $message = "";
-    public $savedUsername = "";
+    private $message = "";
+    private $savedUsername = "";
 
     public function __construct(\model\Login $login){
         $this->loginModel = $login;
@@ -29,6 +27,13 @@ class LoginView {
         return false;
     }
 
+    public function didUserPressLogoutButton(){
+        if(isset($_POST[self::$logout])) {
+            return true;
+        }
+        return false;
+    }
+
     public function usernameInput(){
         $this->savedUsername = $_POST[self::$name];
         return $_POST[self::$name];
@@ -36,13 +41,6 @@ class LoginView {
 
     public function passwordInput(){
         return $_POST[self::$password];
-    }
-
-    public function didUserPressLogoutButton(){
-        if(isset($_POST[self::$logout])) {
-            return true;
-        }
-        return false;
     }
 
     public function checkUserInput($username, $password){
@@ -78,6 +76,9 @@ class LoginView {
         $this->savedUsername = $savedUsername;
     }
 
+    /**
+     * Functions below generates output html.
+     */
     public function response() {
 
         if($this->loginModel->checkIfLoggedIn()){
@@ -91,9 +92,6 @@ class LoginView {
         return $response;
     }
 
-    /**
-     * Functions below generates output html.
-     */
     private function generateLogoutButtonHTML() {
         return '
             <form  method="post" >

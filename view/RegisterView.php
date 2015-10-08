@@ -9,32 +9,41 @@ class RegisterView {
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $register = 'RegisterView::Register';
 
-    private $saveLocationSession = "saveLocation";
+    private $tempUserSession = "tempUser";
     private $message;
-    public $savedUsername = "";
+    private $savedUsername = "";
+
     public $userAlreadyExists;
     public $isUserSaved = false;
 
+    /**
+     * Functions below sets redirects and saves user information
+     * as a temporary user object in session.
+     */
     public function redirect(){
         $tempUser = new \model\TempUser($this->message, $this->savedUsername);
-        $_SESSION[$this->saveLocationSession] = $tempUser;
+        $_SESSION[$this->tempUserSession] = $tempUser;
         $actualLink = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
         header("Location: $actualLink");
     }
 
     public function getTempUser(){
-        if(isset($_SESSION[$this->saveLocationSession])){
-            return $_SESSION[$this->saveLocationSession];
+        if(isset($_SESSION[$this->tempUserSession])){
+            return $_SESSION[$this->tempUserSession];
         }
         return null;
     }
 
-    public function unsetSaveLocationSession(){
-        if(isset($_SESSION[$this->saveLocationSession])){
-            unset($_SESSION[$this->saveLocationSession]);
+    public function unsetTempUserSessionSession(){
+        if(isset($_SESSION[$this->tempUserSession])){
+            unset($_SESSION[$this->tempUserSession]);
         }
     }
 
+    /**
+     * Functions below gets input from user,
+     * and sets messages.
+     */
     public function didUserPressRegisterButton(){
         if(isset($_POST[self::$register])){
             return true;
@@ -54,17 +63,11 @@ class RegisterView {
         return $_POST[self::$passwordRepeat];
     }
 
-    public function setRegister($value){
-        self::$register = $value;
-    }
-
     public function checkUserInput($username, $password, $passwordRepeat){
-
+        $this->savedUsername = $username;
         if(strlen($username) > 2){
             $this->message = "";
-            $this->savedUsername = $username;
         } else {
-            $this->savedUsername = $username;
             $this->message = "Username has too few characters, at least 3 characters. <br/>";
         }
         if(strlen($password) < 6){
@@ -90,6 +93,9 @@ class RegisterView {
         return false;
     }
 
+    /**
+     * Functions below generates output html.
+     */
     public function response() {
         $response = $this->renderRegisterForm($this->message);
         return $response;

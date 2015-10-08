@@ -3,9 +3,6 @@
 namespace model;
 class Register
 {
-
-    private $username;
-    private $password;
     private $userAlreadyExists = false;
 
     public function __construct()
