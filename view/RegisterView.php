@@ -9,11 +9,31 @@ class RegisterView {
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $register = 'RegisterView::Register';
 
+    private $saveLocationSession = "saveLocation";
     private $message;
     public $savedUsername = "";
     public $userAlreadyExists;
-    public $wantsToRegisterUser = false;
     public $isUserSaved = false;
+
+    public function redirect(){
+        $tempUser = new \model\TempUser($this->message, $this->savedUsername);
+        $_SESSION[$this->saveLocationSession] = $tempUser;
+        $actualLink = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+        header("Location: $actualLink");
+    }
+
+    public function getTempUser(){
+        if(isset($_SESSION[$this->saveLocationSession])){
+            return $_SESSION[$this->saveLocationSession];
+        }
+        return null;
+    }
+
+    public function unsetSaveLocationSession(){
+        if(isset($_SESSION[$this->saveLocationSession])){
+            unset($_SESSION[$this->saveLocationSession]);
+        }
+    }
 
     public function didUserPressRegisterButton(){
         if(isset($_POST[self::$register])){
@@ -32,6 +52,10 @@ class RegisterView {
 
     public function getPassWordRepeatInput(){
         return $_POST[self::$passwordRepeat];
+    }
+
+    public function setRegister($value){
+        self::$register = $value;
     }
 
     public function checkUserInput($username, $password, $passwordRepeat){
@@ -59,6 +83,8 @@ class RegisterView {
 
         if($this->message == ""){
             $this->isUserSaved = true;
+            $this->message = "Registered new user.";
+            $this->redirect();
             return true;
         }
         return false;

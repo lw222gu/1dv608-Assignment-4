@@ -8,8 +8,12 @@ require_once('view/RegisterView.php');
 require_once('view/NavigationView.php');
 require_once('model/Login.php');
 require_once('model/Register.php');
+require_once('model/TempUser.php');
 require_once('controller/LoginController.php');
 require_once('controller/RegisterController.php');
+
+//START SESSION
+session_start();
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);

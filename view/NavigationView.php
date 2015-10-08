@@ -6,7 +6,7 @@ class NavigationView{
     private $loginView;
     private $registerView;
     private $wantsToRegisterUser;
-    public $isUserSaved = true;
+    private $isUserSaved = true;
 
     public function __construct(\view\LoginView $loginView, \view\RegisterView $registerView){
         $this->loginView = $loginView;
@@ -33,28 +33,23 @@ class NavigationView{
     }
 
     public function setResponse(){
-        //If user logged in or out, show login view
-        if($this->loginView->didUserPressLoginButton() || $this->loginView->didUserPressLogoutButton()){
-            return $this->loginView->response();
-        }
 
-        //If user pressed register a new user, show register form from register view
         if ($this->wantsToRegisterUser == true){
             return $this->registerView->response();
         }
 
-        //If user just started the application, show login form from login view
-        if(!$this->registerView->isUserSaved && !$this->wantsToRegisterUser){
+        if($this->loginView->didUserPressLogoutButton() || $this->loginView->didUserPressLoginButton()){
+            $this->registerView->unsetSaveLocationSession();
             return $this->loginView->response();
         }
 
-        //If user is saved -> return login form with success message
-        if($this->registerView->isUserSaved){
-            $this->registerView->isUserSaved = false;
-            $this->loginView->savedUsername = $this->registerView->savedUsername;
-            $this->loginView->message = "Registered new user.";
+        if($this->registerView->getTempUser() != null){
+            $tempUser = $this->registerView->getTempUser();
+            $this->loginView->setTempUserInformation($tempUser->getSessionMessage(), $tempUser->getSavedUsername());
             return $this->loginView->response();
         }
+
+        return $this->loginView->response();
+
     }
-
 }

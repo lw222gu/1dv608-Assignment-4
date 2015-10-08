@@ -73,13 +73,19 @@ class LoginView {
         $this->message = "Bye bye!";
     }
 
+    public function setTempUserInformation($message, $savedUsername){
+        $this->message = $message;
+        $this->savedUsername = $savedUsername;
+    }
+
     public function response() {
+
         if($this->loginModel->checkIfLoggedIn()){
-            $response = $this->generateLogoutButtonHTML($this->message);
+            $response = $this->generateLogoutButtonHTML();
         }
 
         else {
-            $response = $this->generateLoginFormHTML($this->message);
+            $response = $this->generateLoginFormHTML();
         }
 
         return $response;
@@ -88,21 +94,21 @@ class LoginView {
     /**
      * Functions below generates output html.
      */
-    private function generateLogoutButtonHTML($message) {
+    private function generateLogoutButtonHTML() {
         return '
             <form  method="post" >
-                <p id="' . self::$messageId . '">' . $message .'</p>
+                <p id="' . self::$messageId . '">' . $this->message .'</p>
                 <input type="submit" name="' . self::$logout . '" value="logout"/>
             </form>
         ';
     }
 
-    private function generateLoginFormHTML($message) {
+    private function generateLoginFormHTML() {
         return '
             <form method="post" >
                 <fieldset>
                     <legend>Login - enter Username and password</legend>
-                    <p id="' . self::$messageId . '">' . $message . '</p>
+                    <p id="' . self::$messageId . '">' . $this->message . '</p>
 
                     <label for="' . self::$name . '">Username :</label>
                     <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->savedUsername . '" />
