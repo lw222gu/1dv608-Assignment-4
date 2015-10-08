@@ -7,15 +7,15 @@ Assignment 4, Web Development with PHP
 
 ## Use Cases
 Use cases are found at:
-* https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_2/Assignment2_Use_Cases.md, and
-* https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_4/UC4.md.
+* [Use Cases 1-3](https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_2/Assignment2_Use_Cases.md)
+* [Use Case 4](https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_4/UC4.md)
 
-(Use Case 3 is not implemented.)
+Use Case 3 is not implemented.
 
 ## Test Cases
 Test cases are found at:
-* https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_2/Assignment2_Test_Cases_Mandatory.md, and
-* https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_4/TestCases.md.
+* [Test Cases 1-2](https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_2/Assignment2_Test_Cases_Mandatory.md)
+* [Test Case 4](https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_4/TestCases.md)
 
 ## Installation
 1. Upload files to your server.
