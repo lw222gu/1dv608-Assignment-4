@@ -18,16 +18,15 @@ class Settings {
 
     /**
      * DATA PATH:
-     * You can choose to use the data directory already created in this component,
-     * or you can use your own storage directory. If you want to use the directory
+     * You can choose to use the "data" directory already created in this component,
+     * or you can use your own data storage directory. If you want to use the directory
      * in this component, leave the DATA_PATH constant as it is, otherwise set it to
      * the directory you want to use.
      *
-     * If you choose to have your data directory inside the webroot like in this
-     * component, remember you need to keep the .htaccess file, and you
-     * need to give your server the rights to write to the diretory, for it to
-     * be able to access and use the user files.
+     * If you choose to have your data storage directory inside the webroot like in this
+     * component, remember you need the .htaccess file inside the directory, to prevent access
+     * to your files through a browser. You also need to give your server the rights to write
+     * to that directory, for it to be able to access and use the user files.
      */
     const DATA_PATH = "data/";
-
 }
