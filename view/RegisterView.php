@@ -11,15 +11,11 @@ class RegisterView {
 
     private $tempUserSession = "tempUser";
     private $message;
-    private $savedUsername = "";
+    private $username;
 
     private $userAlreadyExists;
     private $isUserSaved = false;
 
-    /**
-     * Functions below gets and sets private members
-     * which needs to be accessible through other classes.
-     */
     public function setUserAlreadyExists($userAlreadyExists){
         $this->userAlreadyExists = $userAlreadyExists;
     }
@@ -33,7 +29,7 @@ class RegisterView {
      * as a temporary user object in session.
      */
     private function redirect(){
-        $tempUser = new \model\TempUser($this->message, $this->savedUsername);
+        $tempUser = new \model\TempUser($this->message, $this->username);
         $_SESSION[$this->tempUserSession] = $tempUser;
         $actualLink = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
         header("Location: $actualLink");
@@ -64,6 +60,7 @@ class RegisterView {
     }
 
     public function getUsernameInput(){
+        $this->username = $_POST[self::$name];
         return $_POST[self::$name];
     }
 
@@ -75,25 +72,24 @@ class RegisterView {
         return $_POST[self::$passwordRepeat];
     }
 
-    public function checkUserInput($username, $password, $passwordRepeat){
-        $this->savedUsername = $username;
-        if(strlen($username) > 2){
+    public function checkUserInput(){
+        if(strlen($this->username) > 2){
             $this->message = "";
         } else {
             $this->message = "Username has too few characters, at least 3 characters. <br/>";
         }
-        if(strlen($password) < 6){
+        if(strlen($this->getPasswordInput()) < 6){
             $this->message .= "Password has too few characters, at least 6 characters. <br/>";
         }
-        if($password != $passwordRepeat){
+        if($this->getPasswordInput() != $this->getPassWordRepeatInput()){
             $this->message .= "Passwords do not match. <br/>";
         }
         if($this->userAlreadyExists){
             $this->message .= "User exists, pick another username. <br />";
         }
-        if(strlen($username) != strlen(strip_tags($username))) {
+        if(strlen($this->username) != strlen(strip_tags($this->username))) {
             $this->message .= "Username contains invalid characters.";
-            $this->savedUsername = strip_tags($username);
+            $this->username = strip_tags($this->username);
         }
 
         if($this->message == ""){
@@ -123,7 +119,7 @@ class RegisterView {
                     <br />
 
                     <label for="' . self::$name . '">Username :</label>
-                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->savedUsername . '" />
+                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->username . '" />
                     <br />
 
                     <label for="' . self::$password . '">Password :</label>

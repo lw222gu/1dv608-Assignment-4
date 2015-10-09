@@ -11,7 +11,7 @@ class LoginView {
 
     private $loginModel;
     private $message = "";
-    private $savedUsername = "";
+    private $username = "";
 
     public function __construct(\model\Login $login){
         $this->loginModel = $login;
@@ -35,7 +35,7 @@ class LoginView {
     }
 
     public function usernameInput(){
-        $this->savedUsername = $_POST[self::$name];
+        $this->username = $_POST[self::$name];
         return $_POST[self::$name];
     }
 
@@ -43,13 +43,13 @@ class LoginView {
         return $_POST[self::$password];
     }
 
-    public function checkUserInput($username, $password){
-        if($username == ""){
+    public function checkUserInput(){
+        if($this->username == ""){
             $this->message = "Username is missing";
             return false;
         }
 
-        if($password == ""){
+        if($this->passwordInput() == ""){
             $this->message = "Password is missing";
             return false;
         }
@@ -71,9 +71,9 @@ class LoginView {
         $this->message = "Bye bye!";
     }
 
-    public function setTempUserInformation($message, $savedUsername){
+    public function setTempUserInformation($message, $username){
         $this->message = $message;
-        $this->savedUsername = $savedUsername;
+        $this->username = $username;
     }
 
     /**
@@ -109,7 +109,7 @@ class LoginView {
                     <p id="' . self::$messageId . '">' . $this->message . '</p>
 
                     <label for="' . self::$name . '">Username :</label>
-                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->savedUsername . '" />
+                    <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->username . '" />
 
                     <label for="' . self::$password . '">Password :</label>
                     <input type="password" id="' . self::$password . '" name="' . self::$password . '" />

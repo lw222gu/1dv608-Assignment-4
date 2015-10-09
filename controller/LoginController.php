@@ -21,7 +21,7 @@ class LoginController
             $username = $this->loginView->usernameInput();
             $password = $this->loginView->passwordInput();
 
-            if($this->loginView->checkUserInput($username, $password)){
+            if($this->loginView->checkUserInput()){
                 if($this->loginModel->checkUserInput($username, $password)){
                     $this->loginView->setLoginMessage();
                 }

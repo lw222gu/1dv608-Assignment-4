@@ -18,13 +18,10 @@ class RegisterController {
 
             $username = $this->registerView->getUsernameInput();
             $password = $this->registerView->getPasswordInput();
-            $passwordRepeat = $this->registerView->getPassWordRepeatInput(); //denna behöver inte hämtas här och skickas tillbaka...
 
-        //    if($this->register->checkIfUserExists($username)){
-                $this->registerView->setUserAlreadyExists($this->register->checkIfUserExists($username));
-        //    }
+            $this->registerView->setUserAlreadyExists($this->register->checkIfUserExists($username));
 
-            $this->isUserInputValid = $this->registerView->checkUserInput($username, $password, $passwordRepeat);
+            $this->isUserInputValid = $this->registerView->checkUserInput();
 
             if($this->isUserInputValid){
                 $this->register->saveUser($username, $password);
