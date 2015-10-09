@@ -18,5 +18,6 @@ Test cases are found at:
 * [Test Case 4](https://github.com/dntoll/1DV608/blob/master/Assignments/Assignment_4/TestCases.md)
 
 ## Installation
-1. Upload files to your server.
-2. You need to give your server the rights to write to the folder "data", for it to be able to access and use the user files.
+1. Change information in Settings.php.default, and rename it to Settings.php.
+2. Upload files to your server.
+3. If you choose to use the data directory in this component for data storage, you need to give your server the rights to write to that directory. See the Settings.php.default for more information.

@@ -2,7 +2,7 @@
 
 namespace model;
 class Login {
-    private $isLoggedInSession = "isLoggedIn";
+    private $isLoggedInSession = \Settings::APP_SESSION_IS_LOGGED_IN;
 
     public function __construct() {
         if(!isset($_SESSION[$this->isLoggedInSession])){

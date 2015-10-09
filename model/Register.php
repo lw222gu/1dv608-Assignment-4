@@ -12,7 +12,7 @@ class Register
 
     public function checkIfUserExists($username)
     {
-        if(file_exists("data/" . $username . ".txt")){
+        if(file_exists(\Settings::DATA_PATH . $username . ".txt")){
             $this->userAlreadyExists = true;
             return true;
         }
@@ -24,7 +24,7 @@ class Register
     }
 
     public function saveUser($username, $password){
-        $newFile = fopen("data/" . $username . ".txt", "w");
+        $newFile = fopen(\Settings::DATA_PATH . $username . ".txt", "w");
         $input = password_hash($password, PASSWORD_DEFAULT);
         fwrite($newFile, $input);
         fclose($newFile);

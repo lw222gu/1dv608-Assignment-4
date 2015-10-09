@@ -9,7 +9,7 @@ class RegisterView {
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $register = 'RegisterView::Register';
 
-    private $tempUserSession = "tempUser";
+    private $tempUserSession = \Settings::APP_SESSION_TEMP_USER;
     private $message;
     private $username;
 
