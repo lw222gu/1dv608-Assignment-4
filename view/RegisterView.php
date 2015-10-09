@@ -25,7 +25,7 @@ class RegisterView {
     }
 
     /**
-     * Functions below sets redirects and saves user information
+     * Functions below redirects and saves user information
      * as a temporary user object in session.
      */
     private function redirect(){
@@ -105,17 +105,17 @@ class RegisterView {
      * Functions below generates output html.
      */
     public function response() {
-        $response = $this->renderRegisterForm($this->message);
+        $response = $this->renderRegisterForm();
         return $response;
     }
 
-    private function renderRegisterForm($message){
+    private function renderRegisterForm(){
         return '
             <h2>Register new user</h2>
             <form method="post" >
                 <fieldset>
                     <legend>Register a new user - Write username and password</legend>
-                    <p id="' . self::$messageId . '">' . $message . '</p>
+                    <p id="' . self::$messageId . '">' . $this->message . '</p>
                     <br />
 
                     <label for="' . self::$name . '">Username :</label>

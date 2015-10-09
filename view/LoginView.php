@@ -18,7 +18,7 @@ class LoginView {
     }
 
     /**
-     * Functions below gets and checks input from user.
+     * Functions below gets and checks input from user, and sets messages.
      */
     public function didUserPressLoginButton(){
         if(isset($_POST[self::$login])){
@@ -56,9 +56,6 @@ class LoginView {
         return true;
     }
 
-    /**
-     * Functions below sets messages.
-     */
     public function setWrongCredentialsMessage(){
         $this->message = "Wrong name or password";
     }
@@ -71,6 +68,9 @@ class LoginView {
         $this->message = "Bye bye!";
     }
 
+    /**
+     * Function below sets temp user information, in case of redirect.
+     */
     public function setTempUserInformation($message, $username){
         $this->message = $message;
         $this->username = $username;

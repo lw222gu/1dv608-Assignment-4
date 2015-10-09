@@ -18,13 +18,11 @@ class Login {
                 $_SESSION[$this->isLoggedInSession] = true;
                 return true;
             }
-
             else {
                 fclose($userFile);
                 return false;
             }
         }
-
         else {
             return false;
         }
@@ -39,6 +37,5 @@ class Login {
 
     public function Logout(){
         $_SESSION[$this->isLoggedInSession] = false;
-        //session_destroy(); //SHOULD NOT BE DESTROYED!!
     }
 }

@@ -5,11 +5,6 @@ class Register
 {
     private $userAlreadyExists = false;
 
-    public function __construct()
-    {
-        //Do I even need this constructor?
-    }
-
     public function checkIfUserExists($username)
     {
         if(file_exists(\Settings::DATA_PATH . $username . ".txt")){
